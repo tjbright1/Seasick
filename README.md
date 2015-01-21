@@ -1,2 +1,2 @@
 # Seasick
-Patrick was here
+The Pirate game you have always dreamed of!

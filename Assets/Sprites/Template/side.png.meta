@@ -1,14 +1,14 @@
 fileFormatVersion: 2
-guid: 3e5c805daccbb8d4ca527057761125a5
+guid: 9a2d58b4ef44a554eb37699b30050419
 TextureImporter:
   fileIDToRecycleName:
-    21300000: back_0
-    21300002: back_1
-    21300004: back_2
-    21300006: back_3
-    21300008: back_4
-    21300010: back_5
-    21300012: back_6
+    21300000: side_0
+    21300002: side_1
+    21300004: side_2
+    21300006: side_3
+    21300008: side_4
+    21300010: side_5
+    21300012: side_6
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -32,7 +32,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: 16
+    aniso: -1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -43,82 +43,82 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
-  spriteBorder: {x: 0, y: 0, z: 427, w: 0}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: back_0
+    - name: side_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 0
-        width: 75
-        height: 256
+        x: 0
+        y: 1305
+        width: 102
+        height: 216
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: back_1
+    - name: side_1
       rect:
         serializedVersion: 2
-        x: 83
-        y: 0
-        width: 75
-        height: 256
+        x: 0
+        y: 1087
+        width: 102
+        height: 216
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: back_2
+    - name: side_2
       rect:
         serializedVersion: 2
-        x: 158
-        y: 0
-        width: 75
-        height: 256
+        x: 0
+        y: 871
+        width: 102
+        height: 216
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: back_3
+    - name: side_3
       rect:
         serializedVersion: 2
-        x: 233
-        y: 0
-        width: 75
-        height: 256
+        x: 0
+        y: 655
+        width: 102
+        height: 216
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: back_4
+    - name: side_4
       rect:
         serializedVersion: 2
-        x: 296
-        y: 0
-        width: 75
-        height: 256
+        x: 0
+        y: 439
+        width: 102
+        height: 216
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: back_5
+    - name: side_5
       rect:
         serializedVersion: 2
-        x: 365
-        y: 0
-        width: 75
-        height: 256
+        x: 0
+        y: 223
+        width: 102
+        height: 216
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: back_6
+    - name: side_6
       rect:
         serializedVersion: 2
-        x: 440
-        y: 0
-        width: 72
-        height: 255
+        x: 0
+        y: 7
+        width: 102
+        height: 216
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

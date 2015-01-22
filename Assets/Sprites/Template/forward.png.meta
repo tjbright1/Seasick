@@ -1,14 +1,13 @@
 fileFormatVersion: 2
-guid: 3e5c805daccbb8d4ca527057761125a5
+guid: 4d8c6da4f47a8394289d27e2ccea3913
 TextureImporter:
   fileIDToRecycleName:
-    21300000: back_0
-    21300002: back_1
-    21300004: back_2
-    21300006: back_3
-    21300008: back_4
-    21300010: back_5
-    21300012: back_6
+    21300000: forward_0
+    21300002: forward_1
+    21300004: forward_2
+    21300006: forward_3
+    21300008: forward_4
+    21300010: forward_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -28,7 +27,7 @@ TextureImporter:
   grayScaleToAlpha: 0
   generateCubemap: 0
   seamlessCubemap: 0
-  textureFormat: -1
+  textureFormat: -2
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
@@ -43,80 +42,70 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
-  spriteBorder: {x: 0, y: 0, z: 427, w: 0}
+  spriteBorder: {x: 0, y: 383, z: 56, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: back_0
+    - name: forward_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 0
-        width: 75
-        height: 256
+        x: 0
+        y: 381
+        width: 60
+        height: 188
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: back_1
+    - name: forward_1
       rect:
         serializedVersion: 2
-        x: 83
-        y: 0
-        width: 75
-        height: 256
+        x: 60
+        y: 381
+        width: 60
+        height: 188
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: back_2
+    - name: forward_2
       rect:
         serializedVersion: 2
-        x: 158
-        y: 0
-        width: 75
-        height: 256
+        x: 0
+        y: 191
+        width: 60
+        height: 188
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: back_3
+    - name: forward_3
       rect:
         serializedVersion: 2
-        x: 233
-        y: 0
-        width: 75
-        height: 256
+        x: 60
+        y: 191
+        width: 60
+        height: 188
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: back_4
+    - name: forward_4
       rect:
         serializedVersion: 2
-        x: 296
-        y: 0
-        width: 75
-        height: 256
+        x: 0
+        y: 1
+        width: 60
+        height: 188
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: back_5
+    - name: forward_5
       rect:
         serializedVersion: 2
-        x: 365
-        y: 0
-        width: 75
-        height: 256
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: back_6
-      rect:
-        serializedVersion: 2
-        x: 440
-        y: 0
-        width: 72
-        height: 255
+        x: 60
+        y: 1
+        width: 60
+        height: 188
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

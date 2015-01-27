@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{E856FC9A-3CC5-F3BC-DB89-3E7E757C80FF}</ProjectGuid>
+	<ProjectGuid>{91861873-3D37-9DA7-4F8C-446C128C20EE}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -47,12 +47,16 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\AddBuoyancy.cs" />
+     <Compile Include="Assets\Scripts\AddNavigation.cs" />
      <Compile Include="Assets\Scripts\Billboard.cs" />
+     <Compile Include="Assets\Scripts\CameraControl.cs" />
+     <Compile Include="Assets\Scripts\CharacterMotorCS.cs" />
      <Compile Include="Assets\Scripts\Ocean.cs" />
+     <Compile Include="Assets\Scripts\SCR_playerMove.cs" />
      <None Include="Assets\Shaders\OceanWireframeIndie.shader" />
      <None Include="Assets\Shaders\OceanIndie.shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>C:/Users/Mitch/Downloads/OceanSurfaceEffects_Indie/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ <HintPath>Q:/files/archive/Coding/unityProjects/Seasick/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>Q:/program/applications/coding/projectRelated/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
@@ -60,7 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
-      <Project>{61E71B8F-4BCC-5A99-F5B3-7FF3587DDFC8}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
+      <Project>{0B522843-3243-EDC3-A35D-E0CE9ECF176D}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

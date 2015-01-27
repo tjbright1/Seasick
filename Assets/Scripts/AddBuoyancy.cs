@@ -44,7 +44,7 @@ public class AddBuoyancy : MonoBehaviour
 			
 			transform.position = pos;
 			
-			transform.localEulerAngles = new Vector3(-dz*m_tilt,0,dx*m_tilt);
+			//transform.localEulerAngles = new Vector3(-dz*m_tilt,0,dx*m_tilt);
 		}
 	}
 }

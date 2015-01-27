@@ -193,11 +193,11 @@ public class Ocean : MonoBehaviour
 		m_wireframeMat.SetFloat("_LodFadeDist", m_lodFadeDist);
 		
 		//This makes sure the grid is always centered were the player is
-		Vector3 pos = Camera.main.transform.position;
-		pos.y = m_seaLevel;
-		
-		m_grid.transform.localPosition = pos;
-		m_gridWireframe.transform.localPosition = pos;
+//		Vector3 pos = Camera.main.transform.position;
+//		pos.y = m_seaLevel;
+//		
+//		m_grid.transform.localPosition = pos;
+//		m_gridWireframe.transform.localPosition = pos;
 		
 	}
 	

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 58c0f1e5bd7c2d24db27100846d2e28f
+guid: a49cc93a4f5f3314293d1c5cb8808ba9
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -30,30 +30,27 @@ ModelImporter:
     100048: hamnets
     100050: HDFLAGS
     100052: HFSAILS
-    100054: HSTUDSAILS
-    100056: hull
-    100058: HWFLAGS
-    100060: lanterns
-    100062: LSTUDSAILS
-    100064: LWFLAGS
-    100066: LWSAILS
-    100068: mainrope
-    100070: masts
-    100072: OCANNONS
-    100074: ratlines
-    100076: rigging
-    100078: rudder_
-    100080: sboat01
-    100082: sboat02
-    100084: sboat03
-    100086: sboat04
-    100088: //RootNode
-    100090: skylite
-    100092: STDSPARE
-    100094: STDSPARR
-    100096: stern
-    100098: STERNW
-    100100: wheel
+    100054: hull
+    100056: HWFLAGS
+    100058: lanterns
+    100060: LWFLAGS
+    100062: mainrope
+    100064: masts
+    100066: OCANNONS
+    100068: ratlines
+    100070: rigging
+    100072: rudder_
+    100074: sboat01
+    100076: sboat02
+    100078: sboat03
+    100080: sboat04
+    100082: //RootNode
+    100084: skylite
+    100086: STDSPARE
+    100088: STDSPARR
+    100090: stern
+    100092: STERNW
+    100094: wheel
     400000: anchor1
     400002: anchor2
     400004: anchor3
@@ -81,30 +78,27 @@ ModelImporter:
     400048: hamnets
     400050: HDFLAGS
     400052: HFSAILS
-    400054: HSTUDSAILS
-    400056: hull
-    400058: HWFLAGS
-    400060: lanterns
-    400062: LSTUDSAILS
-    400064: LWFLAGS
-    400066: LWSAILS
-    400068: mainrope
-    400070: masts
-    400072: OCANNONS
-    400074: ratlines
-    400076: rigging
-    400078: rudder_
-    400080: sboat01
-    400082: sboat02
-    400084: sboat03
-    400086: sboat04
-    400088: //RootNode
-    400090: skylite
-    400092: STDSPARE
-    400094: STDSPARR
-    400096: stern
-    400098: STERNW
-    400100: wheel
+    400054: hull
+    400056: HWFLAGS
+    400058: lanterns
+    400060: LWFLAGS
+    400062: mainrope
+    400064: masts
+    400066: OCANNONS
+    400068: ratlines
+    400070: rigging
+    400072: rudder_
+    400074: sboat01
+    400076: sboat02
+    400078: sboat03
+    400080: sboat04
+    400082: //RootNode
+    400084: skylite
+    400086: STDSPARE
+    400088: STDSPARR
+    400090: stern
+    400092: STERNW
+    400094: wheel
     2300000: anchor1
     2300002: anchor2
     2300004: anchor3
@@ -132,29 +126,26 @@ ModelImporter:
     2300048: hamnets
     2300050: HDFLAGS
     2300052: HFSAILS
-    2300054: HSTUDSAILS
-    2300056: hull
-    2300058: HWFLAGS
-    2300060: lanterns
-    2300062: LSTUDSAILS
-    2300064: LWFLAGS
-    2300066: LWSAILS
-    2300068: mainrope
-    2300070: masts
-    2300072: OCANNONS
-    2300074: ratlines
-    2300076: rigging
-    2300078: rudder_
-    2300080: sboat01
-    2300082: sboat02
-    2300084: sboat03
-    2300086: sboat04
-    2300088: skylite
-    2300090: STDSPARE
-    2300092: STDSPARR
-    2300094: stern
-    2300096: STERNW
-    2300098: wheel
+    2300054: hull
+    2300056: HWFLAGS
+    2300058: lanterns
+    2300060: LWFLAGS
+    2300062: mainrope
+    2300064: masts
+    2300066: OCANNONS
+    2300068: ratlines
+    2300070: rigging
+    2300072: rudder_
+    2300074: sboat01
+    2300076: sboat02
+    2300078: sboat03
+    2300080: sboat04
+    2300082: skylite
+    2300084: STDSPARE
+    2300086: STDSPARR
+    2300088: stern
+    2300090: STERNW
+    2300092: wheel
     3300000: anchor1
     3300002: anchor2
     3300004: anchor3
@@ -182,29 +173,26 @@ ModelImporter:
     3300048: hamnets
     3300050: HDFLAGS
     3300052: HFSAILS
-    3300054: HSTUDSAILS
-    3300056: hull
-    3300058: HWFLAGS
-    3300060: lanterns
-    3300062: LSTUDSAILS
-    3300064: LWFLAGS
-    3300066: LWSAILS
-    3300068: mainrope
-    3300070: masts
-    3300072: OCANNONS
-    3300074: ratlines
-    3300076: rigging
-    3300078: rudder_
-    3300080: sboat01
-    3300082: sboat02
-    3300084: sboat03
-    3300086: sboat04
-    3300088: skylite
-    3300090: STDSPARE
-    3300092: STDSPARR
-    3300094: stern
-    3300096: STERNW
-    3300098: wheel
+    3300054: hull
+    3300056: HWFLAGS
+    3300058: lanterns
+    3300060: LWFLAGS
+    3300062: mainrope
+    3300064: masts
+    3300066: OCANNONS
+    3300068: ratlines
+    3300070: rigging
+    3300072: rudder_
+    3300074: sboat01
+    3300076: sboat02
+    3300078: sboat03
+    3300080: sboat04
+    3300082: skylite
+    3300084: STDSPARE
+    3300086: STDSPARR
+    3300088: stern
+    3300090: STERNW
+    3300092: wheel
     4300000: skylite
     4300002: STERNW
     4300004: anchor4
@@ -251,10 +239,7 @@ ModelImporter:
     4300086: sboat04
     4300088: CCANNONS
     4300090: HFSAILS
-    4300092: HSTUDSAILS
-    4300094: LSTUDSAILS
-    4300096: LWSAILS
-    4300098: STDSPARE
+    4300092: STDSPARE
     7400000: Default Take
     9500000: //RootNode
   materials:

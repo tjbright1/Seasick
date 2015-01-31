@@ -52,6 +52,7 @@
      <Compile Include="Assets\Scripts\CameraControl.cs" />
      <Compile Include="Assets\Scripts\CharacterMotorCS.cs" />
      <Compile Include="Assets\Scripts\Ocean.cs" />
+     <Compile Include="Assets\Scripts\PauseMenu.cs" />
      <Compile Include="Assets\Scripts\SCR_playerMove.cs" />
      <None Include="Assets\Shaders\OceanWireframeIndie.shader" />
      <None Include="Assets\Shaders\OceanIndie.shader" />

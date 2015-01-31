@@ -46,8 +46,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\RaycastToNavMesh.js" />
      <Compile Include="Assets\Scripts\FPS.js" />
+     <Compile Include="Assets\Scripts\RaycastToNavMesh.js" />
      <Compile Include="Assets\Scripts\ToggleWireframe.js" />
      <Compile Include="Assets\Scripts\Wireframe.js" />
      <None Include="Assets\Shaders\OceanWireframeIndie.shader" />

@@ -1,7 +1,3 @@
 # Seasick
 
-The Pirate game you have always dreamed of!
-
-Patrick was here
-
-Patrick was also here
+Maritime survival and crew management game.

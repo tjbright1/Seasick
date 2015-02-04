@@ -39,12 +39,12 @@ public class AddBuoyancy : MonoBehaviour
 			
 			pos.y = (ht0+ht1+ht2+ht3)/4.0f + m_offset;
 
-			float dx = ht0 - ht1;
-			float dz = ht2 - ht3;
+			//float dx = ht0 - ht1;
+			//float dz = ht2 - ht3;
 			
 			transform.position = pos;
 			
-			//transform.localEulerAngles = new Vector3(-dz*m_tilt,0,dx*m_tilt);
+			//transform.localEulerAngles = new Vector3(-dz*m_tilt,0,dx*m_tilt); Conflict with the camera controls
 		}
 	}
 }

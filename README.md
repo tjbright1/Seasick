@@ -1,8 +1,6 @@
 # Seasick
 ---------------
 ## Swashbuckling, crew management thing using Unity3D.
-
-<<<<<<< HEAD
 Maritime survival and crew management game.
 =======
 The plan for the game itself is to be a pirate. You sail with your mates, the brig filled to the brim with gold. One unfortunate storm occurs and you find yourself marooned with your surviving crew in the middle of the ocean with no masts. You must manage your resources and your crew to repair your ship before the impending arrival of the British Royal Navy. Fail to keep your crew's moral up and you will face the betrayal of your own mates.
@@ -61,4 +59,3 @@ An HTML demo of the (game)[http://gamejolt.com/games/strategy-sim/seasick/47071/
 ## License
 ---------------
 MIT
->>>>>>> origin/master

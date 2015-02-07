@@ -12,7 +12,9 @@ public class Pirate : MonoBehaviour {
 	public double hunger = 20.0;
 	public double thirst = 15.0;
 	public double moral = 50.0;
+
 	public Vector3 curLocation;
+	public bool selected = false;
 
 	//Initialization
 	void Start () {
@@ -21,6 +23,8 @@ public class Pirate : MonoBehaviour {
 	}
 
 	void Update () {
-		
-	}	
+
+	}
+
+
 }

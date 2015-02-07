@@ -1,0 +1,14 @@
+Hull Texture:
+http://opengameart.org/node/31793
+http://opengameart.org/node/31794
+http://opengameart.org/node/31795
+
+Deck Texture:
+http://opengameart.org/node/32092
+http://opengameart.org/node/32093
+
+Night Skybox Texture:
+http://www.zfight.com/misc/images/textures/envmaps/grimmnight_large.jpg
+
+Not Used, but cool:
+http://www.philipk.net/tutorials/materials/woodrough/woodrough.html

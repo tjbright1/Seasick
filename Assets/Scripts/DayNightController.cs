@@ -1,355 +1,254 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using UnityEngine;  
+using System.Collections;  
 
-/// <summary>
-/// Implements a Day/Night cycle relative to the game world, with a World-Time clock, and optional Direcitonal Light control.
-/// </summary>
-/// <!-- 
-/// Version 0.0.1.0 (beta)
-/// By Reed Kimble
-/// Last Revision 5/19/2011
-/// -->
-/// <remarks>
-/// Add this script to a new GameObject to create a Day/Night cycle for the scene. The day/night cycle effect is achieved by modifying the
-/// scene ambient light color, fog color, and skybox material.  The script will also rotate, fade, and enable/disable a directional
-/// light if one is attached to the same GameObject as the DayNightController script.  The length of a complete day (in seconds) and the number of
-/// hours per day are modifiable in the script fields and allow calculation of the World-time hour-of-day.  Each 'phase' of the day is considered
-/// to be 1/4 of the dayCycleLength.
-/// 
-/// Note that the script will rotate the GameObject transform it is attached to, even if no directional light is attached. You will probably want to 
-/// use a dedicated GameObject for this script and any attached directional light.
-/// 
-/// The GameObject with this script should be placed roughly in the center of your scene, with a height of about 2/3 the length (or width) of the terrain.
-/// If that GameObject has a light, it should be a directional light pointed straight down (x:90, y:0, z:0).  This light will then be rotated around its
-/// x-axis (relative to the scene; eg. as if you used the rotation tool locked on the green x axis) and will reach its horizontal peeks during the
-/// end of dusk and beginning of dawn, turning off during the night (upside-down rotation).
-/// 
-/// The reset command will attempt to use the default skybox assets DawnDusk, Sunny2, and StarryNight if that package has been imported.  The
-/// command will also choose acceptable color values and set the day cycle to two minutes. It is suggested that the directional light be a light-
-/// yellow or peach in color with a roughly 0.33f intensity.  The script will not set any default values for the light, if one exists, so the light
-/// must be configured manually.
-/// </remarks>
 public class DayNightController : MonoBehaviour
-{
-		/// <summary>
-		/// The number of real-world seconds in one game day.
-		/// </summary>
-		public float dayCycleLength;
+{  
+		/// number of seconds in a day  
+		public float dayCycleLength = 1440;  
 	
-		/// <summary>
-		/// The current time within the day cycle. Modify to change the World Time.
-		/// </summary>
-		public float currentCycleTime;
+		/// current time in game time (0 - dayCycleLength).  
+		public float currentCycleTime = 0;  
 	
-		//Would be the amount of time the sky takes to transition if UpdateSkybox were used.
-		//public float skyTransitionTime;
+		/// number of hours per day.  
+		public float hoursPerDay;  
 	
-		/// <summary>
-		/// The current 'phase' of the day; Dawn, Day, Dusk, or Night
-		/// </summary>
-		public DayPhase currentPhase;
+		/// The rotation pivot of Sun  
+		public Transform rotation;  
 	
-		/// <summary>
-		/// The number of hours per day used in the WorldHour time calculation.
-		/// </summary>
-		public float hoursPerDay;
+		/// current day phase  
+		public DayPhase currentPhase;  
 	
-		/// <summary>
-		/// Dawn occurs at currentCycleTime = 0.0f, so this offsets the WorldHour time to make
-		/// dawn occur at a specified hour. A value of 3 results in a 5am dawn for a 24 hour world clock.
-		/// </summary>
-		public float dawnTimeOffset;
+		/// Dawn occurs at currentCycleTime = 0.0f, so this offsets the WorldHour time to make  
+		/// dawn occur at a specified hour. A value of 3 results in a 5am dawn for a 24 hour world clock.  
+		public float dawnTimeOffset;  
 	
-		/// <summary>
-		/// The calculated hour of the day, based on the hoursPerDay setting. Do not set this value.
-		/// Change the time of day by calculating and setting the currentCycleTime.
-		/// </summary>
-		public int worldTimeHour;
+		/// calculated hour of the day, based on the hoursPerDay setting.  
+		public int worldTimeHour;  
 	
-		/// <summary>
-		/// The scene ambient color used for full daylight.
-		/// </summary>
-		public Color fullLight;
+		/// calculated minutes of the day, based on the hoursPerDay setting.  
+		public int minutes;  
+		private float timePerHour ;  
 	
-		/// <summary>
-		/// The scene ambient color used for full night.
-		/// </summary>
-		public Color fullDark;
+		/// The scene ambient color used for full daylight.  
+		public Color fullLight = new Color (253.0f / 255.0f, 248.0f / 255.0f, 223.0f / 255.0f);  
 	
-		/// <summary>
-		/// The scene skybox material to use at dawn and dusk.
-		/// </summary>
-		public Material dawnDuskSkybox;
+		/// The scene ambient color used for full night.  
+		public Color fullDark = new Color (32.0f / 255.0f, 28.0f / 255.0f, 46.0f / 255.0f);  
 	
-		/// <summary>
-		/// The scene fog color to use at dawn and dusk.
-		/// </summary>
-		public Color dawnDuskFog;
+		/// The scene fog color to use at dawn and dusk.  
+		public Color dawnDuskFog = new Color (133.0f / 255.0f, 124.0f / 255.0f, 102.0f / 255.0f);  
 	
-		/// <summary>
-		/// The scene skybox material to use during the day.
-		/// </summary>
-		public Material daySkybox;
+		/// The scene fog color to use during the day.  
+		public Color dayFog = new Color (180.0f / 255.0f, 208.0f / 255.0f, 209.0f / 255.0f);  
 	
-		/// <summary>
-		/// The scene fog color to use during the day.
-		/// </summary>
-		public Color dayFog;
+		/// The scene fog color to use at night.  
+		public Color nightFog = new Color (12.0f / 255.0f, 15.0f / 255.0f, 91.0f / 255.0f);  
 	
-		/// <summary>
-		/// The scene skybox material to use at night.
-		/// </summary>
-		public Material nightSkybox;
+		/// The calculated time at which dawn occurs based on 1/4 of dayCycleLength.  
+		private float dawnTime;   
 	
-		/// <summary>
-		/// The scene fog color to use at night.
-		/// </summary>
-		public Color nightFog;
+		/// The calculated time at which day occurs based on 1/4 of dayCycleLength.  
+		private float dayTime;  
 	
-		/// <summary>
-		/// The calculated time at which dawn occurs based on 1/4 of dayCycleLength.
-		/// </summary>
-		private float dawnTime; 
+		/// The calculated time at which dusk occurs based on 1/4 of dayCycleLength.  
+		private float duskTime;  
 	
-		/// <summary>
-		/// The calculated time at which day occurs based on 1/4 of dayCycleLength.
-		/// </summary>
-		private float dayTime;
+		/// The calculated time at which night occurs based on 1/4 of dayCycleLength.  
+		private float nightTime;  
 	
-		/// <summary>
-		/// The calculated time at which dusk occurs based on 1/4 of dayCycleLength.
-		/// </summary>
-		private float duskTime;
+		/// One quarter the value of dayCycleLength.  
+		private float quarterDay;  
+		private float halfquarterDay;  
 	
-		/// <summary>
-		/// The calculated time at which night occurs based on 1/4 of dayCycleLength.
-		/// </summary>
-		private float nightTime;
-	
-		/// <summary>
-		/// One quarter the value of dayCycleLength.
-		/// </summary>
-		private float quarterDay;
-	
-		//Would be the amount of time remaining in the skybox transition if UpdateSkybox were used.
-		//private float remainingTransition;
-	
-		/// <summary>
-		/// The specified intensity of the directional light, if one exists. This value will be
-		/// faded to 0 during dusk, and faded from 0 back to this value during dawn.
-		/// </summary>
+		/// The specified intensity of the directional light, if one exists. This value will be  
+		/// faded to 0 during dusk, and faded from 0 back to this value during dawn.  
 		private float lightIntensity;
+
+		// blend value of skybox using SkyBoxBlend Shader in render settings range 0-1  
+		private float SkyboxBlendFactor = 0.0f;  
 	
-		/// <summary>
-		/// Initializes working variables and performs starting calculations.
-		/// </summary>
+		/// Initializes working variables and performs starting calculations.  
 		void Initialize ()
-		{
-				//remainingTransition = skyTransitionTime; //Would indicate that the game should start with an active transition, if UpdateSkybox were used.
-				quarterDay = dayCycleLength * 0.25f;
-				dawnTime = 0.0f;
-				dayTime = dawnTime + quarterDay;
-				duskTime = dayTime + quarterDay;
-				nightTime = duskTime + quarterDay;
+		{  
+				quarterDay = dayCycleLength * 0.25f;  
+				halfquarterDay = dayCycleLength * 0.125f;  
+				dawnTime = 0.0f;  
+				dayTime = dawnTime + halfquarterDay;  
+				duskTime = dayTime + quarterDay + halfquarterDay;  
+				nightTime = duskTime + halfquarterDay;  
+				timePerHour = dayCycleLength / hoursPerDay;  
 				if (light != null) {
 						lightIntensity = light.intensity;
-				}
-		}
+				}  
+		}  
 	
-		/// <summary>
-		/// Sets the script control fields to reasonable default values for an acceptable day/night cycle effect.
-		/// </summary>
+		/// Sets the script control fields to reasonable default values for an acceptable day/night cycle effect.  
 		void Reset ()
-		{
-				dayCycleLength = 120.0f;
-				//skyTransitionTime = 3.0f; //would be set if UpdateSkybox were used.
-				hoursPerDay = 24.0f;
-				dawnTimeOffset = 3.0f;
-				fullDark = new Color (32.0f / 255.0f, 28.0f / 255.0f, 46.0f / 255.0f);
-				fullLight = new Color (253.0f / 255.0f, 248.0f / 255.0f, 223.0f / 255.0f);
-				dawnDuskFog = new Color (133.0f / 255.0f, 124.0f / 255.0f, 102.0f / 255.0f);
-				dayFog = new Color (180.0f / 255.0f, 208.0f / 255.0f, 209.0f / 255.0f);
-				nightFog = new Color (12.0f / 255.0f, 15.0f / 255.0f, 91.0f / 255.0f);
-				Skybox[] skyboxes = AssetBundle.FindObjectsOfTypeIncludingAssets (typeof(Skybox)) as Skybox[];
-				foreach (Skybox box in skyboxes) {
-						if (box.name == "DawnDusk Skybox") {
-								dawnDuskSkybox = box.material;
-						} else if (box.name == "StarryNight Skybox") {
-								nightSkybox = box.material;
-						} else if (box.name == "Sunny2 Skybox") {
-								daySkybox = box.material;
-						}
-				}
-		}
+		{  
+				dayCycleLength = 120.0f;  
+				hoursPerDay = 24.0f;  
+				dawnTimeOffset = 3.0f;  
+				fullDark = new Color (32.0f / 255.0f, 28.0f / 255.0f, 46.0f / 255.0f);  
+				fullLight = new Color (253.0f / 255.0f, 248.0f / 255.0f, 223.0f / 255.0f);  
+				dawnDuskFog = new Color (133.0f / 255.0f, 124.0f / 255.0f, 102.0f / 255.0f);  
+				dayFog = new Color (180.0f / 255.0f, 208.0f / 255.0f, 209.0f / 255.0f);  
+				nightFog = new Color (12.0f / 255.0f, 15.0f / 255.0f, 91.0f / 255.0f);  
+		}  
 	
-		// Use this for initialization
+		// Use this for initialization  
 		void Start ()
-		{
-				Initialize ();
-		}
+		{  
+				Initialize ();  
+		}  
 	
-		// Update is called once per frame
+		void OnGUI ()
+		{  
+				string jam = worldTimeHour.ToString ();  
+				string menit = minutes.ToString ();  
+				if (worldTimeHour < 10) {  
+						jam = "0" + worldTimeHour;  
+				}  
+				if (minutes < 10) {  
+						menit = "0" + minutes;  
+				}  
+				GUI.Button (new Rect (500, 20, 100, 26), currentPhase.ToString () + " : " + jam + ":" + menit);  
+		}  
+	
+		// Update is called once per frame  
 		void Update ()
-		{
-				// Rudementary phase-check algorithm:
-				if (currentCycleTime > nightTime && currentPhase == DayPhase.Dusk) {
-						SetNight ();
-				} else if (currentCycleTime > duskTime && currentPhase == DayPhase.Day) {
-						SetDusk ();
-				} else if (currentCycleTime > dayTime && currentPhase == DayPhase.Dawn) {
-						SetDay ();
-				} else if (currentCycleTime > dawnTime && currentCycleTime < dayTime && currentPhase == DayPhase.Night) {
-						SetDawn ();
-				}
+		{  
+				// Rudementary phase-check algorithm:  
+				if (currentCycleTime > nightTime && currentPhase == DayPhase.Dusk) {  
+						SetNight ();  
+				} else if (currentCycleTime > duskTime && currentPhase == DayPhase.Day) {  
+						SetDusk ();  
+				} else if (currentCycleTime > dayTime && currentPhase == DayPhase.Dawn) {  
+						SetDay ();  
+				} else if (currentCycleTime > dawnTime && currentCycleTime < dayTime && currentPhase == DayPhase.Night) {  
+						SetDawn ();  
+				}  
 		
 				// Perform standard updates:
-				UpdateWorldTime ();
+				UpdateWorldTime ();  
 				UpdateDaylight ();
-				UpdateFog ();
-				//UpdateSkybox(); //would be called if UpdateSkybox were used.
+				UpdateSkyboxBlendFactor ();
+				UpdateFog ();  
 		
-				// Update the current cycle time:
-				currentCycleTime += Time.deltaTime;
-				currentCycleTime = currentCycleTime % dayCycleLength;
+				// Update the current cycle time:  
+				currentCycleTime += Time.deltaTime;  
+				currentCycleTime = currentCycleTime % dayCycleLength;  
+		
 		}
+
+		private void UpdateSkyboxBlendFactor ()
+		{  
+				if (currentPhase == DayPhase.Dawn) {  
+						float relativeTime = currentCycleTime - dawnTime;  
+						SkyboxBlendFactor = 1 - (relativeTime / halfquarterDay);  
+				} else if (currentPhase == DayPhase.Day) {  
+						SkyboxBlendFactor = 0.0f;  
+				} else if (currentPhase == DayPhase.Dusk) {  
+						float relativeTime = currentCycleTime - duskTime;  
+						SkyboxBlendFactor = relativeTime / halfquarterDay;  
+				} else if (currentPhase == DayPhase.Night) {  
+						SkyboxBlendFactor = 1.0f;  
+				}  
+			
+				RenderSettings.skybox.SetFloat ("_Blend", SkyboxBlendFactor);  
+		}  
 	
-		/// <summary>
-		/// Sets the currentPhase to Dawn, turning on the directional light, if any.
-		/// </summary>
+		/// Sets the currentPhase to Dawn, turning on the directional light, if any.  
 		public void SetDawn ()
-		{
-				RenderSettings.skybox = dawnDuskSkybox; //would be commented out or removed if UpdateSkybox were used.
-				//remainingTransition = skyTransitionTime; //would be set if UpdateSkybox were used.
+		{  
 				if (light != null) {
 						light.enabled = true;
-				}
-				currentPhase = DayPhase.Dawn;
-		}
+				}  
+				currentPhase = DayPhase.Dawn;  
+		}  
 	
-		/// <summary>
-		/// Sets the currentPhase to Day, ensuring full day color ambient light, and full
-		/// directional light intensity, if any.
-		/// </summary>
+		/// Sets the currentPhase to Day, ensuring full day color ambient light, and full  
+		/// directional light intensity, if any.  
 		public void SetDay ()
-		{
-				RenderSettings.skybox = daySkybox; //would be commented out or removed if UpdateSkybox were used.
-				//remainingTransition = skyTransitionTime; //would be set if UpdateSkybox were used.
-				RenderSettings.ambientLight = fullLight;
+		{  
+				RenderSettings.ambientLight = fullLight;  
 				if (light != null) {
 						light.intensity = lightIntensity;
-				}
-				currentPhase = DayPhase.Day;
-		}
+				}  
+				currentPhase = DayPhase.Day;  
+		}  
 	
-		/// <summary>
-		/// Sets the currentPhase to Dusk.
-		/// </summary>
+		/// Sets the currentPhase to Dusk.  
 		public void SetDusk ()
-		{
-				RenderSettings.skybox = dawnDuskSkybox; //would be commented out or removed if UpdateSkybox were used.
-				//remainingTransition = skyTransitionTime; //would be set if UpdateSkybox were used.
-				currentPhase = DayPhase.Dusk;
-		}
+		{  
+				currentPhase = DayPhase.Dusk;  
+		}  
 	
-		/// <summary>
-		/// Sets the currentPhase to Night, ensuring full night color ambient light, and
-		/// turning off the directional light, if any.
-		/// </summary>
+		/// Sets the currentPhase to Night, ensuring full night color ambient light, and  
+		/// turning off the directional light, if any.  
 		public void SetNight ()
-		{
-				RenderSettings.skybox = nightSkybox; //would be commented out or removed if UpdateSkybox were used.
-				//remainingTransition = skyTransitionTime; //would be set if UpdateSkybox were used.
-				RenderSettings.ambientLight = fullDark;
+		{  
+				RenderSettings.ambientLight = fullDark;  
 				if (light != null) {
 						light.enabled = false;
-				}
-				currentPhase = DayPhase.Night;
-		}
+				}  
+				currentPhase = DayPhase.Night;  
+		}  
 	
-		/// <summary>
-		/// If the currentPhase is dawn or dusk, this method adjusts the ambient light color and direcitonal
-		/// light intensity (if any) to a percentage of full dark or full light as appropriate. Regardless
-		/// of currentPhase, the method also rotates the transform of this component, thereby rotating the
-		/// directional light, if any.
-		/// </summary>
+		/// If the currentPhase is dawn or dusk, this method adjusts the ambient light color and direcitonal  
+		/// light intensity (if any) to a percentage of full dark or full light as appropriate. Regardless  
+		/// of currentPhase, the method also rotates the transform of this component, thereby rotating the  
+		/// directional light, if any.  
 		private void UpdateDaylight ()
-		{
-				if (currentPhase == DayPhase.Dawn) {
-						float relativeTime = currentCycleTime - dawnTime;
-						RenderSettings.ambientLight = Color.Lerp (fullDark, fullLight, relativeTime / quarterDay);
+		{  
+				if (currentPhase == DayPhase.Dawn) {  
+						float relativeTime = currentCycleTime - dawnTime;  
+						RenderSettings.ambientLight = Color.Lerp (fullDark, fullLight, relativeTime / halfquarterDay);  
 						if (light != null) {
-								light.intensity = lightIntensity * (relativeTime / quarterDay);
-						}
-				} else if (currentPhase == DayPhase.Dusk) {
-						float relativeTime = currentCycleTime - duskTime;
-						RenderSettings.ambientLight = Color.Lerp (fullLight, fullDark, relativeTime / quarterDay);
+								light.intensity = lightIntensity * (relativeTime / halfquarterDay);
+						}  
+				} else if (currentPhase == DayPhase.Dusk) {  
+						float relativeTime = currentCycleTime - duskTime;  
+						RenderSettings.ambientLight = Color.Lerp (fullLight, fullDark, relativeTime / halfquarterDay);  
 						if (light != null) {
-								light.intensity = lightIntensity * ((quarterDay - relativeTime) / quarterDay);
-						}
-				}
+								light.intensity = lightIntensity * ((halfquarterDay - relativeTime) / halfquarterDay);
+						}  
+				}  
 		
-				transform.Rotate (Vector3.up * ((Time.deltaTime / dayCycleLength) * 360.0f), Space.Self);
-		}
+				//transform.Rotate(Vector3.up * ((Time.deltaTime / dayCycleLength) * 360.0f), Space.Self);  
+				transform.RotateAround (rotation.position, Vector3.forward, ((Time.deltaTime / dayCycleLength) * 360.0f));  
+		}  
 	
-		/// <summary>
-		/// Interpolates the fog color between the specified phase colors during each phase's transition.
-		/// eg. From DawnDusk to Day, Day to DawnDusk, DawnDusk to Night, and Night to DawnDusk
-		/// </summary>
+		/// Interpolates the fog color between the specified phase colors during each phase's transition.  
+		/// eg. From DawnDusk to Day, Day to DawnDusk, DawnDusk to Night, and Night to DawnDusk  
 		private void UpdateFog ()
-		{
-				if (currentPhase == DayPhase.Dawn) {
-						float relativeTime = currentCycleTime - dawnTime;
-						RenderSettings.fogColor = Color.Lerp (dawnDuskFog, dayFog, relativeTime / quarterDay);
-				} else if (currentPhase == DayPhase.Day) {
-						float relativeTime = currentCycleTime - dayTime;
-						RenderSettings.fogColor = Color.Lerp (dayFog, dawnDuskFog, relativeTime / quarterDay);
-				} else if (currentPhase == DayPhase.Dusk) {
-						float relativeTime = currentCycleTime - duskTime;
-						RenderSettings.fogColor = Color.Lerp (dawnDuskFog, nightFog, relativeTime / quarterDay);
-				} else if (currentPhase == DayPhase.Night) {
-						float relativeTime = currentCycleTime - nightTime;
-						RenderSettings.fogColor = Color.Lerp (nightFog, dawnDuskFog, relativeTime / quarterDay);
-				}
-		}
+		{  
+				if (currentPhase == DayPhase.Dawn) {  
+						float relativeTime = currentCycleTime - dawnTime;  
+						RenderSettings.fogColor = Color.Lerp (dawnDuskFog, dayFog, relativeTime / halfquarterDay);  
+				} else if (currentPhase == DayPhase.Day) {  
+						float relativeTime = currentCycleTime - dayTime;  
+						RenderSettings.fogColor = Color.Lerp (dayFog, dawnDuskFog, relativeTime / (quarterDay + halfquarterDay));  
+				} else if (currentPhase == DayPhase.Dusk) {  
+						float relativeTime = currentCycleTime - duskTime;  
+						RenderSettings.fogColor = Color.Lerp (dawnDuskFog, nightFog, relativeTime / halfquarterDay);  
+				} else if (currentPhase == DayPhase.Night) {  
+						float relativeTime = currentCycleTime - nightTime;  
+						RenderSettings.fogColor = Color.Lerp (nightFog, dawnDuskFog, relativeTime / (quarterDay + halfquarterDay));  
+				}  
+		}  
 	
-		//Not yet implemented, but would be nice to allow a smoother transition of the Skybox material.
-		//private void UpdateSkybox()
-		//{
-		//    if (remainingTransition > 0.0f)
-		//    {
-		//        if (currentPhase == DayCycle.Dawn)
-		//        {
-		//            //RenderSettings.skybox.Lerp(dawnDuskSkybox, nightSkybox, remainingTransition / skyTransitionTime);
-		//        }
-		//        if (currentPhase == DayCycle.Day)
-		//        {
-	
-		//        }
-		//        if (currentPhase == DayCycle.Dusk)
-		//        {
-	
-		//        }
-		//        if (currentPhase == DayCycle.Night)
-		//        {
-	
-		//        }
-		//        remainingTransition -= Time.deltaTime;
-		//    }
-		//}
-	
-		/// <summary>
-		/// Updates the World-time hour based on the current time of day.
-		/// </summary>
+		/// Updates the World-time hour based on the current time of day.  
 		private void UpdateWorldTime ()
-		{
-				worldTimeHour = (int)((Mathf.Ceil ((currentCycleTime / dayCycleLength) * hoursPerDay) + dawnTimeOffset) % hoursPerDay) + 1;
-		}
+		{  
+				worldTimeHour = (int)((Mathf.Ceil ((currentCycleTime / dayCycleLength) * hoursPerDay) + dawnTimeOffset) % hoursPerDay) + 1;  
+				minutes = (int)(Mathf.Ceil ((currentCycleTime * (60 / timePerHour)) % 60));  
+		}  
 	
 		public enum DayPhase
-		{
-				Night = 0,
-				Dawn = 1,
-				Day = 2,
-				Dusk = 3
-		}
+		{  
+				Night = 0,  
+				Dawn = 1,  
+				Day = 2,  
+				Dusk = 3  
+		}  
 }

@@ -10,5 +10,8 @@ http://opengameart.org/node/32093
 Night Skybox Texture:
 http://www.zfight.com/misc/images/textures/envmaps/grimmnight_large.jpg
 
+Ocean Shader:
+http://scrawkblog.com/2013/02/24/ocean-renderer-for-unity/
+
 Not Used, but cool:
 http://www.philipk.net/tutorials/materials/woodrough/woodrough.html

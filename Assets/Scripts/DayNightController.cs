@@ -27,7 +27,10 @@ public class DayNightController : MonoBehaviour
 	
 		/// calculated minutes of the day, based on the hoursPerDay setting.  
 		public int minutes;  
-		private float timePerHour ;  
+		private float timePerHour;
+
+		/// The Number of days that have past since the game has been running
+		public static int daysPast;
 	
 		/// The scene ambient color used for full daylight.  
 		public Color fullLight = new Color (253.0f / 255.0f, 248.0f / 255.0f, 223.0f / 255.0f);  
@@ -111,7 +114,7 @@ public class DayNightController : MonoBehaviour
 				if (minutes < 10) {  
 						menit = "0" + minutes;  
 				}  
-				GUI.Button (new Rect (500, 20, 100, 26), currentPhase.ToString () + " : " + jam + ":" + menit);  
+				//GUI.Button (new Rect (500, 20, 100, 26), currentPhase.ToString () + " : " + jam + ":" + menit);  
 		}  
 	
 		// Update is called once per frame  
@@ -125,7 +128,8 @@ public class DayNightController : MonoBehaviour
 				} else if (currentCycleTime > dayTime && currentPhase == DayPhase.Dawn) {  
 						SetDay ();  
 				} else if (currentCycleTime > dawnTime && currentCycleTime < dayTime && currentPhase == DayPhase.Night) {  
-						SetDawn ();  
+						SetDawn ();
+						daysPast++;
 				}  
 		
 				// Perform standard updates:
@@ -136,8 +140,7 @@ public class DayNightController : MonoBehaviour
 		
 				// Update the current cycle time:  
 				currentCycleTime += Time.deltaTime;  
-				currentCycleTime = currentCycleTime % dayCycleLength;  
-		
+				currentCycleTime = currentCycleTime % dayCycleLength;
 		}
 
 		private void UpdateSkyboxBlendFactor ()

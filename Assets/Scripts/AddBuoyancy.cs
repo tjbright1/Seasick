@@ -4,6 +4,7 @@ using System.Collections;
 public class AddBuoyancy : MonoBehaviour 
 {
 	Ocean m_ocean;
+	GameObject ocean;
 	
 	public float m_spread = 1.0f;
 	public float m_offset = 0.0f;
@@ -11,7 +12,7 @@ public class AddBuoyancy : MonoBehaviour
 
 	void Start() 
 	{
-		GameObject ocean = GameObject.Find("Ocean");
+		//GameObject ocean = GameObject.Find("Ocean");
 		
 		if(ocean == null)
 		{

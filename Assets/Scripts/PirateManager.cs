@@ -1,25 +1,19 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
 
 public class PirateManager : MonoBehaviour
 {
-
 		private GameObject[] pirateObjects;
-		private GameObject[] textObjects;
 
-		public static double totalHunger = 0;
-		public static double totalThirst = 0;
-		public static double totalMoral = 0;
-		public Text[] textValues;
+		public static int totalHunger = 0;
+		public static int totalThirst = 0;
+		public static int totalMoral = 0;
 		public static ArrayList pirates;
 		public static Pirate lastSelected; 
 
 		//Initialization
 		void Awake ()
 		{
-				textObjects = GameObject.FindGameObjectsWithTag ("Text");
-
 				pirates = new ArrayList ();
 				pirateObjects = GameObject.FindGameObjectsWithTag ("Pirates");
 				for (int i = 0; i < pirateObjects.Length; i++)
@@ -30,7 +24,6 @@ public class PirateManager : MonoBehaviour
 	
 		void Update ()
 		{
-				updateText ();
 				checkForPirate ();
 		}
 
@@ -63,13 +56,6 @@ public class PirateManager : MonoBehaviour
 				}
 				return false;
 		}
-	
-		public void updateText ()
-		{
-				textValues [0].text = "Hunger: " + totalHunger;
-				textValues [1].text = "Thirst: " + totalThirst;
-				textValues [2].text = "Moral: " + totalMoral;
-		}
 
 		public void checkForPirate ()
 		{
@@ -88,24 +74,21 @@ public class PirateManager : MonoBehaviour
 				} 
 		}
 
-		public static void setHunger (double effect)
+		public static void setHunger (int effect)
 		{
 				totalHunger += effect;
-				JobManager.calculateEffects ();
 				Debug.Log ("Total Hunger: " + totalHunger);
 		}
 	
-		public static void setThirst (double effect)
+		public static void setThirst (int effect)
 		{
 				totalThirst += effect;
-				JobManager.calculateEffects ();
 				Debug.Log ("Total Thirst: " + totalThirst);
 		}
 	
-		public static void setMoral (double effect)
+		public static void setMoral (int effect)
 		{
 				totalMoral += effect;
-				JobManager.calculateEffects ();
 				Debug.Log ("Total Moral: " + totalMoral);
 		}
 }

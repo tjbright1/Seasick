@@ -6,17 +6,19 @@ public class PirateManager : MonoBehaviour {
 
 	private GameObject[] pirateObjects;
 	private GameObject[] textObjects;
-
+	
 	public static double totalHunger = 0;
 	public static double totalThirst = 0;
 	public static double totalMoral = 0;
 	public Text[] textValues;
 	public static ArrayList pirates;
 	public static Pirate lastSelected; 
+	public static GameObject selector;
 
 	//Initialization
 	void Awake () {
 		textObjects = GameObject.FindGameObjectsWithTag ("Text");
+		selector = GameObject.Find ("Selector");
 
 		pirates = new ArrayList ();
 		pirateObjects = GameObject.FindGameObjectsWithTag ("Pirates");
@@ -62,20 +64,30 @@ public class PirateManager : MonoBehaviour {
 	}
 
 	public void checkForPirate() {
-		if (Input.GetMouseButtonDown(0) && !isAPirateSelected())
-		{
+		if (Input.GetMouseButtonDown(0)) {
+			foreach (Pirate e in pirates) 
+				e.selected = false;
+			selector.renderer.enabled = false;
+			Debug.Log("Hit nothing");
 			RaycastHit hitInfo = new RaycastHit();
 			bool hit = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo);
 			if (hit) 
 			{
 				Debug.Log("Hit " + hitInfo.transform.gameObject.name);
 				if (hitInfo.transform.gameObject.tag == "Pirates") {
-					hitInfo.transform.gameObject.GetComponent<Pirate>().selected = true;
+					selector.transform.parent = null;
+					selector.renderer.enabled = true;
+					Pirate currentPirate = hitInfo.transform.gameObject.GetComponent<Pirate>();
+					currentPirate.selected = true;
+					currentPirate.say (0);
+					selector.transform.position = currentPirate.transform.position + new Vector3(0, 5, 0);
+					selector.transform.SetParent(currentPirate.transform, true);
+
 					lastSelected = hitInfo.transform.gameObject.GetComponent<Pirate>();
 				}
 
-				JobManager.checkForJob(hitInfo);
-			}
+				//JobManager.checkForJob(hitInfo);
+			} 
 		} 
 	}
 

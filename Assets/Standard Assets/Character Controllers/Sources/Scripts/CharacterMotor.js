@@ -147,7 +147,7 @@ var movingPlatform : CharacterMotorMovingPlatform = CharacterMotorMovingPlatform
 
 class CharacterMotorSliding {
 	// Does the character slide on too steep surfaces?
-	var enabled : boolean = true;
+	var enabled : boolean = false;
 	
 	// How fast does the character slide on steep surfaces?
 	var slidingSpeed : float = 15;

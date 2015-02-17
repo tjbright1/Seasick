@@ -10,6 +10,7 @@ public class PirateManager : MonoBehaviour
 		public static int totalMoral = 0;
 		public static ArrayList pirates;
 		public static Pirate lastSelected;
+		public static GameObject selector;
 
 		//Initialization
 		void Awake ()

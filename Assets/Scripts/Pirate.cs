@@ -16,6 +16,8 @@ public class Pirate : MonoBehaviour {
 	public Vector3 curLocation;
 	public bool selected = false;
 
+	public AudioClip[] pirateSpeechClips;
+	
 	//Initialization
 	void Start () {
 		agent = gameObject.GetComponent<NavMeshAgent>();
@@ -26,5 +28,11 @@ public class Pirate : MonoBehaviour {
 
 	}
 
-
+	public void say(int audioIndex) {
+		if (!audio.isPlaying) {
+			audio.clip = pirateSpeechClips [audioIndex];
+			audio.pitch = Random.Range (1.20F, 1.35F);
+			audio.Play ();
+		}
+	}
 }

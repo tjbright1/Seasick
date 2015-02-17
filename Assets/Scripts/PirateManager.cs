@@ -9,11 +9,13 @@ public class PirateManager : MonoBehaviour
 		public static int totalThirst = 0;
 		public static int totalMoral = 0;
 		public static ArrayList pirates;
-		public static Pirate lastSelected; 
+		public static Pirate lastSelected;
+		public static GameObject selector;
 
 		//Initialization
 		void Awake ()
 		{
+				selector = GameObject.Find ("Selector");
 				pirates = new ArrayList ();
 				pirateObjects = GameObject.FindGameObjectsWithTag ("Pirates");
 				for (int i = 0; i < pirateObjects.Length; i++)
@@ -21,7 +23,7 @@ public class PirateManager : MonoBehaviour
 
 				calculateTotals ();
 		}
-	
+
 		void Update ()
 		{
 				checkForPirate ();
@@ -43,7 +45,7 @@ public class PirateManager : MonoBehaviour
 		{
 				foreach (Pirate e in pirates) {
 						if (e.selected)
-								return e; 
+								return e;
 				}
 				return null;
 		}
@@ -59,19 +61,31 @@ public class PirateManager : MonoBehaviour
 
 		public void checkForPirate ()
 		{
-				if (Input.GetMouseButtonDown (0) && !isAPirateSelected ()) {
+				if (Input.GetMouseButtonDown (0)) {
+						foreach (Pirate e in pirates)
+							e.selected = false;
+
+						selector.renderer.enabled = false;
+						Debug.Log("Hit nothing");
 						RaycastHit hitInfo = new RaycastHit ();
 						bool hit = Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out hitInfo);
 						if (hit) {
 								Debug.Log ("Hit " + hitInfo.transform.gameObject.name);
 								if (hitInfo.transform.gameObject.tag == "Pirates") {
-										hitInfo.transform.gameObject.GetComponent<Pirate> ().selected = true;
-										lastSelected = hitInfo.transform.gameObject.GetComponent<Pirate> ();
+										selector.transform.parent = null;
+										selector.renderer.enabled = true;
+										Pirate currentPirate = hitInfo.transform.gameObject.GetComponent<Pirate>();
+										currentPirate.selected = true;
+										currentPirate.say (0);
+										selector.transform.position = currentPirate.transform.position + new Vector3(0, 5, 0);
+										selector.transform.SetParent(currentPirate.transform, true);
+
+										lastSelected = hitInfo.transform.gameObject.GetComponent<Pirate>();
 								}
 
 								JobManager.checkForJob (hitInfo);
 						}
-				} 
+				}
 		}
 
 		public static void setHunger (int effect)
@@ -79,13 +93,13 @@ public class PirateManager : MonoBehaviour
 				totalHunger += effect;
 				Debug.Log ("Total Hunger: " + totalHunger);
 		}
-	
+
 		public static void setThirst (int effect)
 		{
 				totalThirst += effect;
 				Debug.Log ("Total Thirst: " + totalThirst);
 		}
-	
+
 		public static void setMoral (int effect)
 		{
 				totalMoral += effect;

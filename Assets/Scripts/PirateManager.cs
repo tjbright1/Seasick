@@ -86,7 +86,7 @@ public class PirateManager : MonoBehaviour {
 					lastSelected = hitInfo.transform.gameObject.GetComponent<Pirate>();
 				}
 
-				//JobManager.checkForJob(hitInfo);
+				JobManager.checkForJob(hitInfo);
 			} 
 		} 
 	}

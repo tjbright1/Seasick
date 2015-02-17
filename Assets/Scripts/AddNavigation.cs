@@ -19,13 +19,13 @@ public class AddNavigation : MonoBehaviour {
 		Ray ray = Camera.main.ScreenPointToRay(mouseLocation);
 		Plane playerPlane = new Plane (Vector3.up, transform.position);
 		//Move to target Position
-		if (Input.GetMouseButtonDown(0) && gameObject.gameObject.GetComponent<Pirate>().selected)
+		if (Input.GetMouseButtonDown(1) && gameObject.gameObject.GetComponent<Pirate>().selected)
 		{
 			float hitDist = 0.0f;
 			playerPlane.Raycast(ray, out hitDist);
 			Vector3 targetPoint = ray.GetPoint(hitDist);
 			agent.SetDestination(targetPoint);
-			gameObject.gameObject.GetComponent<Pirate>().selected = false;
+			gameObject.gameObject.GetComponent<Pirate>().say (1);
 		}
 	}
 }

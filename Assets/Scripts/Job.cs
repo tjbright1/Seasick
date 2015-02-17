@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Job : MonoBehaviour {
 
-	public double effect;
+	public int effect;
 
 	public bool affectsFood = false;
 	public bool affectsWater = false;

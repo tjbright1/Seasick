@@ -5,9 +5,10 @@ public class JobManager : MonoBehaviour {
 
 	private GameObject[] jobObjects;
 
-	public static double totalFood = 200;
-	public static double totalWater = 200;
-	public static double totalWood = 0;
+	public static int totalFood = 200;
+	public static int totalWater = 200;
+	public static int totalWood = 0;
+	public static int defaultDays = 30;
 	public static ArrayList jobs;
 
 	void Awake () {
@@ -15,32 +16,28 @@ public class JobManager : MonoBehaviour {
 		jobObjects = GameObject.FindGameObjectsWithTag ("Jobs");
 		for (int i = 0; i < jobObjects.Length; i++)
 			jobs.Add(jobObjects[i].gameObject.GetComponent("Job"));
-
 	}
 
 	void Update () {
 
 	}
 
-	public static void calculateEffects() {
-		//TODO: Call this function at the beginning of each day.
-		if (totalFood < 150)
-			PirateManager.setMoral (-20);
-		if (totalWater < 150)
-			PirateManager.setMoral (-50);
+	public static void calculateMoralEffects() {
+		//TODO: Call this function at the beginning of each day. Causes stack overflow, apparenly
+
 	}
 
-	public static void setFood(double effect) {
+	public static void setFood(int effect) {
 		totalFood += effect;
 		Debug.Log (totalFood);
 	}
 	
-	public static void setWater(double effect) {
+	public static void setWater(int effect) {
 		totalWater += effect;
 		Debug.Log (totalWater);
 	}
 	
-	public static void setWood(double effect) {
+	public static void setWood(int effect) {
 		totalWood += effect;
 		Debug.Log (totalWood);
 	}

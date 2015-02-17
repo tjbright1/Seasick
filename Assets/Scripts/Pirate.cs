@@ -3,15 +3,15 @@ using System.Collections;
 
 public class Pirate : MonoBehaviour {
 
-	private static double maxHunger = 20.0;
-	private static double maxThirst = 15.0;
-	private static double maxMoral = 50.0;
+	private static int maxHunger = 20;
+	private static int maxThirst = 15;
+	private static int maxMoral = 50;
 
 	private NavMeshAgent agent;
 
-	public double hunger = 20.0;
-	public double thirst = 15.0;
-	public double moral = 50.0;
+	public int hunger = 20;
+	public int thirst = 15;
+	public int moral = 50;
 
 	public Vector3 curLocation;
 	public bool selected = false;

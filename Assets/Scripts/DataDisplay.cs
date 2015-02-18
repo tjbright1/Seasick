@@ -11,7 +11,6 @@ public class DataDisplay : MonoBehaviour {
 	}
 	
 	void Update () {
-
 		updateText ();
 	} 
 	
@@ -19,7 +18,7 @@ public class DataDisplay : MonoBehaviour {
 	{
 		textValues [0].text = "Hunger: " + PirateManager.totalHunger;
 		textValues [1].text = "Thirst: " + PirateManager.totalThirst;
-		textValues [2].text = "Moral: " + PirateManager.totalMoral;
+		textValues [2].text = "Moral: " + PirateManager.totalMorale;
 		textValues [3].text = "Days Left: " + (JobManager.defaultDays - DayNightController.daysPast);
 	}	
 }

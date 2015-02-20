@@ -15,13 +15,13 @@ public class Pirate : MonoBehaviour {
 
 	public Vector3 curLocation;
 	public bool selected = false;
+	public bool doneJob = false;
 
 	public AudioClip[] pirateSpeechClips;
 	
 	//Initialization
 	void Start () {
-		agent = gameObject.GetComponent<NavMeshAgent>();
-		curLocation = agent.nextPosition;
+
 	}
 
 	void Update () {

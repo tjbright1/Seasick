@@ -3,19 +3,18 @@ using System.Collections;
 
 public class PirateManager : MonoBehaviour
 {
-	private GameObject[] pirateObjects;
+	private static GameObject[] pirateObjects;
 
 	public static int totalHunger = 0;
 	public static int totalThirst = 0;
 	public static int totalMorale = 0;
 	public static ArrayList pirates;
 	public static Pirate lastSelected;
-	public static GameObject selector;
+	public GameObject selector;
 
 	//Initialization
 	void Awake ()
 	{
-		selector = GameObject.Find ("Selector");
 		pirates = new ArrayList ();
 		pirateObjects = GameObject.FindGameObjectsWithTag ("Pirates");
 		for (int i = 0; i < pirateObjects.Length; i++)
@@ -59,6 +58,11 @@ public class PirateManager : MonoBehaviour
 		return false;
 	}
 
+	public static void pirateJobReset() {
+		foreach (Pirate p in pirates)
+			p.doneJob = false;
+	}
+
 	public void checkForPirate ()
 	{
 		if (Input.GetMouseButtonDown (0)) {
@@ -80,7 +84,6 @@ public class PirateManager : MonoBehaviour
 					selector.transform.SetParent(currentPirate.transform, true);
 					lastSelected = hitInfo.transform.gameObject.GetComponent<Pirate>();
 				}
-				JobManager.checkForJob (hitInfo);
 			}
 		}
 	}
@@ -101,5 +104,9 @@ public class PirateManager : MonoBehaviour
 	{
 		totalMorale += effect;
 		Debug.Log ("Total Morale: " + totalMorale);
+	}
+
+	public static GameObject[] getPirateObjects() {
+		return pirateObjects;
 	}
 }

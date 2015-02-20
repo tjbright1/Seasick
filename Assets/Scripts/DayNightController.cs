@@ -127,11 +127,18 @@ public class DayNightController : MonoBehaviour
 			Time.timeScale = 20;
 		} else if (currentCycleTime > duskTime && currentPhase == DayPhase.Day) {  
 			SetDusk ();  
+			if (daysPast > 0)
+				NightlyEventManager.instance.activateEvent();
 		} else if (currentCycleTime > dayTime && currentPhase == DayPhase.Dawn) {  
 			SetDay ();  
+			if (daysPast > 0)
+				NightlyEventManager.instance.activateEvent();
 		} else if (currentCycleTime > dawnTime && currentCycleTime < dayTime && currentPhase == DayPhase.Night) {  
 			SetDawn ();
+			if (daysPast > 0)
+				NightlyEventManager.instance.activateEvent();
 			daysPast++;
+			PirateManager.pirateJobReset();
 			Time.timeScale = 1;
 		}  
 

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class JobManager : MonoBehaviour {
 
-	private GameObject[] jobObjects;
+	private static GameObject[] jobObjects;
 
 	public static int totalFood = 200;
 	public static int totalWater = 200;
@@ -19,11 +19,11 @@ public class JobManager : MonoBehaviour {
 	}
 
 	void Update () {
-
+		checkForJob ();
 	}
 
 	public static void calculateMoralEffects() {
-		//TODO: Call this function at the beginning of each day. Causes stack overflow, apparenly
+		//TODO: Call this function at the beginning of each day
 
 	}
 
@@ -42,10 +42,18 @@ public class JobManager : MonoBehaviour {
 		Debug.Log (totalWood);
 	}
 
-	public static void checkForJob(RaycastHit hitInfo) {
-		Debug.Log("Job Hit " + hitInfo.transform.gameObject.name);
-		if (hitInfo.transform.gameObject.tag.Equals ("Jobs")) {
-			hitInfo.transform.gameObject.GetComponent<Job> ().doAffect ();
+	///Go through all Jobs and all pirates and checks for an intersection
+	///If there is an intersection it will call doAffect which increases/decreases the appopriate stat
+	///I think it calls do affect multiple times, so that needs to be sorted out.
+	public static void checkForJob() {
+		foreach (GameObject j in jobObjects) {
+			foreach(GameObject p in PirateManager.getPirateObjects()) {
+				if (j.GetComponent<BoxCollider>().bounds.Intersects(p.GetComponent<BoxCollider>().bounds)
+				    && !p.GetComponent<Pirate>().doneJob) {
+					j.GetComponent<Job>().doAffect();
+					p.GetComponent<Pirate>().doneJob = true;
+				}
+			}
 		}
 	}
 }

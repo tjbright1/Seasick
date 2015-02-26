@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PirateManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PirateManager : MonoBehaviour
 	public static int totalMorale = 0;
 	public static ArrayList pirates;
 	public static Pirate lastSelected;
+	public Sprite[] pirateFaces = new Sprite[5];
 	public GameObject selector;
 
 	//Initialization

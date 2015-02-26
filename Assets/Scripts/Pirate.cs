@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Pirate : MonoBehaviour {
 
@@ -9,9 +10,9 @@ public class Pirate : MonoBehaviour {
 
 	private NavMeshAgent agent;
 
-	public int hunger = 20;
-	public int thirst = 15;
-	public int morale = 50;
+	public int hunger = 5;
+	public int thirst = 5;
+	public int morale = 5;
 
 	public Vector3 curLocation;
 	public bool selected = false;
@@ -25,7 +26,9 @@ public class Pirate : MonoBehaviour {
 	}
 
 	void Update () {
-
+		if (selected) {
+			updateUI ();
+		}
 	}
 
 	public void say(int audioIndex) {
@@ -34,5 +37,25 @@ public class Pirate : MonoBehaviour {
 			audio.pitch = Random.Range (1.20F, 1.35F);
 			audio.Play ();
 		}
+	}
+
+	public static int getMaxHunger() {
+		return maxHunger;
+	}
+
+	public static int getMaxThirst() {
+		return maxThirst;
+	}
+
+	public static int getMaxMorale() {
+		return maxMorale;
+	}
+
+	public void updateUI() {
+		GameObject.Find ("StatBars").GetComponent<StatBarAnimator>().changeHunger(hunger);
+		GameObject.Find ("StatBars").GetComponent<StatBarAnimator>().changeThirst(thirst);
+		GameObject.Find ("StatBars").GetComponent<StatBarAnimator>().changeMorale(morale);
+		Sprite [] pirateFaces = GameObject.Find ("PirateManager").GetComponent<PirateManager> ().pirateFaces;
+		GameObject.Find ("StatBars").GetComponent<StatBarAnimator>().changeFaces(pirateFaces);
 	}
 }

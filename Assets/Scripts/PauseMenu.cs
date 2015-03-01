@@ -28,15 +28,15 @@ public class PauseMenu : MonoBehaviour
 	
 		public GameObject start;
 	
-		public string url = "unity.html";
+		public string url = "https://github.com/mitjmcc/Seasick/";
 	
 		public Color statColor = Color.yellow;
 	
 		public string[] credits = {
-		"A Fugu Games Production",
-		"Programming by Phil Chu",
-		"Fugu logo by Shane Nakamura Designs",
-		"Copyright (c) 2007-2008 Technicat, LLC"} ;
+		"VGDev - The Scurvy Team",
+		"Project Lead: Mitch McClellan",
+		"Programming: Patrick, Jimmy, Ho, T.J.",
+		"MIT Liscence, yada yada"} ;
 		public Texture[] crediticons;
 	
 		public enum Page
@@ -153,15 +153,15 @@ public class PauseMenu : MonoBehaviour
 		{
 				if (!IsLegal ()) {
 						GUI.Label (new Rect (Screen.width - 100, Screen.height - 20, 90, 20),
-			          "jdonavan.com");
+			          "");
 				}
 		}
 	
 		bool IsLegal ()
 		{
 				return !IsBrowser () || 
-						Application.absoluteURL.StartsWith ("http://www.jdonavan.com/") ||
-						Application.absoluteURL.StartsWith ("http://jdonavan.com/");
+						Application.absoluteURL.StartsWith ("") ||
+						Application.absoluteURL.StartsWith ("");
 		
 		}
 	
